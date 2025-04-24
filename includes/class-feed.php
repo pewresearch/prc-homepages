@@ -107,8 +107,8 @@ class Feed {
 			<pubDate><?php echo esc_html( mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true, $story ), false ) ); ?></pubDate>
 			<description><![CDATA[<?php echo wp_kses_post( get_the_excerpt( $story ) ); ?>]]></description>
 				<?php if ( $thumbnail ) : ?>
-				<enclosure url="<?php echo esc_url( $thumbnail[0] ); ?>" type="<?php echo esc_attr( get_post_mime_type( $thumbnail_id ) ); ?>" />
-			<?php endif; ?>
+			<enclosure url="<?php echo esc_url( $thumbnail[0] ); ?>" type="<?php echo esc_attr( get_post_mime_type( $thumbnail_id ) ); ?>" />
+				<?php endif; ?>
 		</item>
 				<?php
 			}
@@ -164,6 +164,8 @@ class Feed {
 				'numberposts' => 1,
 			)
 		);
+
+		wp_reset_postdata();
 
 		if ( empty( $homepage ) ) {
 			return array();

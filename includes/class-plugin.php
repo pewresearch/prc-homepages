@@ -91,6 +91,11 @@ class Plugin {
 		$this->loader = new Loader();
 	}
 
+	/**
+	 * Get the template for the homepage.
+	 *
+	 * @return array
+	 */
 	public function get_template() {
 		return array(
 			array(
