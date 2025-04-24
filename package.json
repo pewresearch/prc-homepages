@@ -1,0 +1,23 @@
+{
+    "name": "@pewresearch/prc-homepages",
+    "version": "1.0.0",
+    "description": "A custom content type that enables dynamic management of website homepages. Provides editorial control through scheduling, revision history, and preview capabilities. Editors can create, schedule, and preview different homepage versions before they go live, ensuring seamless content transitions and maintaining a complete history of homepage changes. Perfect for organizations that need to coordinate homepage updates or maintain multiple versions of their front page content.",
+    "scripts": {
+        "build": "wp-scripts build",
+        "test": "wp-scripts test-playwright",
+        "test:env:start": "wp-env start",
+        "test:env:stop": "wp-env stop",
+        "test:env:clean": "wp-env clean all && wp-env start",
+        "test:env:destroy": "wp-env destroy",
+        "test:env:reset": "wp-env clean all && wp-env start"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.51.1",
+        "@wordpress/e2e-test-utils-playwright": "^1.21.0",
+        "@wordpress/env": "^10.21.0",
+        "@wordpress/scripts": "^30.14.1"
+    },
+    "dependencies": {
+        "@wordpress/icons": "^10.21.0"
+    }
+}
