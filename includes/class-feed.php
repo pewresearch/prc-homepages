@@ -99,6 +99,8 @@ class Feed {
 
 				$thumbnail_id = get_post_thumbnail_id( $story );
 				$thumbnail    = $thumbnail_id ? wp_get_attachment_image_src( $thumbnail_id, 'full' ) : null;
+				$format_terms = get_the_terms( $story, 'formats' );
+				$format_name  = $format_terms ? $format_terms[0]->name : 'Report';
 				?>
 		<item>
 			<title><?php echo esc_html( get_the_title( $story ) ); ?></title>
@@ -106,6 +108,9 @@ class Feed {
 			<guid isPermaLink="false"><?php echo esc_url( get_permalink( $story ) ); ?></guid>
 			<pubDate><?php echo esc_html( mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true, $story ), false ) ); ?></pubDate>
 			<description><![CDATA[<?php echo wp_kses_post( get_the_excerpt( $story ) ); ?>]]></description>
+				<?php if ( ! empty( $format_name ) ) : ?>
+			<category><![CDATA[<?php echo wp_kses_post( $format_name ); ?>]]></category>
+				<?php endif; ?>
 				<?php if ( $thumbnail ) : ?>
 			<enclosure url="<?php echo esc_url( $thumbnail[0] ); ?>" type="<?php echo esc_attr( get_post_mime_type( $thumbnail_id ) ); ?>" />
 				<?php endif; ?>
