@@ -1,5 +1,5 @@
 {
-    "name": "@pewresearch/prc-homepages",
+    "name": "@prc/homepages",
     "version": "1.0.0",
     "description": "A custom content type that enables dynamic management of website homepages. Provides editorial control through scheduling, revision history, and preview capabilities. Editors can create, schedule, and preview different homepage versions before they go live, ensuring seamless content transitions and maintaining a complete history of homepage changes. Perfect for organizations that need to coordinate homepage updates or maintain multiple versions of their front page content.",
     "scripts": {
