@@ -1,8 +1,6 @@
 <?php
 namespace PRC\Platform\Homepages;
 
-use DEFAULT_TECHNICAL_CONTACT;
-
 class Plugin_Deactivator {
 
 	public static function deactivate() {

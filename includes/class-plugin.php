@@ -91,6 +91,20 @@ class Plugin {
 		$this->loader = new Loader();
 	}
 
+
+	/**
+	 * Add notes support to the documentation post type.
+	 */
+	public function add_notes_support() {
+		$supports        = get_all_post_type_supports( self::$post_type );
+		$editor_supports = array( 'notes' => true );
+		// `add_post_type_support()` doesn't merge support sub-properties, so we explicitly merge it here.
+		if ( is_array( $supports['editor'] ) && isset( $supports['editor'][0] ) && is_array( $supports['editor'][0] ) ) {
+			$editor_supports = array_merge( $editor_supports, $supports['editor'][0] );
+		}
+		add_post_type_support( self::$post_type, 'editor', $editor_supports );
+	}
+
 	/**
 	 * Get the template for the homepage.
 	 *
@@ -267,6 +281,7 @@ class Plugin {
 		);
 
 		register_post_type( self::$post_type, $args );
+		$this->add_notes_support();
 	}
 
 	/**
