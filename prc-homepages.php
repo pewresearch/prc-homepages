@@ -21,7 +21,7 @@ namespace PRC\Platform\Homepages;
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       prc-homepages
- * Requires Plugins:  prc-platform-core
+ * Requires Plugins:  prc-scripts
  */
 
 // If this file is called directly, abort.
@@ -30,6 +30,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+if ( ! defined( 'DEFAULT_TECHNICAL_CONTACT' ) ) {
+	define( 'DEFAULT_TECHNICAL_CONTACT', 'webdev@pewresearch.org' );
 }
 
 define( 'PRC_HOMEPAGES_FILE', __FILE__ );
