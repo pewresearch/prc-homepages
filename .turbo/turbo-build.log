@@ -2,10 +2,10 @@
 > @prc/homepages@1.0.0 build
 > wp-scripts build
 
-asset index.js 4.45 KiB [emitted] [minimized] (name: index)
-asset block.json 582 bytes [emitted] [from: src/block.json] [copied]
-asset index.asset.php 234 bytes [emitted] (name: index)
-Entrypoint index 4.68 KiB = index.js 4.45 KiB index.asset.php 234 bytes
-orphan modules 218 KiB [orphan] 332 modules
-./src/index.js + 18 modules 9.57 KiB [not cacheable] [built] [code generated]
-webpack 5.106.2 compiled successfully in 2834 ms
+asset [1m[32mindex.js[39m[22m 4.45 KiB [1m[32m[emitted][39m[22m [1m[32m[minimized][39m[22m (name: index)
+asset [1m[32mblock.json[39m[22m 582 bytes [1m[32m[emitted][39m[22m [from: src/block.json] [1m[32m[copied][39m[22m
+asset [1m[32mindex.asset.php[39m[22m 234 bytes [1m[32m[emitted][39m[22m (name: index)
+Entrypoint [1mindex[39m[22m 4.68 KiB = [1m[32mindex.js[39m[22m 4.45 KiB [1m[32mindex.asset.php[39m[22m 234 bytes
+orphan modules 218 KiB [1m[33m[orphan][39m[22m 332 modules
+[1m./src/index.js + 18 modules[39m[22m 9.57 KiB [1m[31m[not cacheable][39m[22m [1m[33m[built][39m[22m [1m[33m[code generated][39m[22m
+webpack 5.106.2 compiled [1m[32msuccessfully[39m[22m in 8305 ms
