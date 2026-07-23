@@ -25,7 +25,7 @@ Manages the Pew Research Center homepage through a custom `homepage` post type, 
 | `src/preview-selection-modal.jsx` | Modal to switch the editor preview to any existing homepage post |
 | `src/create-new-homepage-modal.jsx` | Modal to create a new draft homepage (pre-seeded with the default grid layout) |
 | `src/constants.js` | `POST_TYPE`, `POST_TYPE_LABEL`, and `DEFAULT_CONTENT` (the default block template serialized as block markup) |
-| `tests/create-homepage-post.spec.ts` | Playwright e2e test for homepage creation |
+| `tests/prc-homepages/e2e/create-homepage-post.spec.ts` | Playwright e2e test for homepage creation |
 
 ## Filters / hooks
 
