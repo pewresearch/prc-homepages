@@ -1,5 +1,7 @@
 # PRC Homepages
 
+> Canonical docs: [docs/plugins/prc-homepages/](../../docs/plugins/prc-homepages/)
+
 Manages the Pew Research Center homepage through a custom `homepage` post type, enabling editors to draft, schedule, and version-control the front page without touching the block theme template. The most recently published `homepage` post is rendered on the front page via the `prc-platform/latest-homepage` block.
 
 ## What it does

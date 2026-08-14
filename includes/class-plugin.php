@@ -70,6 +70,7 @@ class Plugin {
 		$this->loader->add_action( 'admin_bar_menu', $this, 'add_front_page_quick_edit', 999 );
 		$this->loader->add_action( 'init', $this, 'block_init' );
 		new Feed( $this->get_loader() );
+		new Admin_Dataview_Lists( $this->get_loader() );
 	}
 
 
@@ -86,6 +87,7 @@ class Plugin {
 		// Load plugin loading class.
 		require_once plugin_dir_path( __DIR__ ) . '/includes/class-loader.php';
 		require_once plugin_dir_path( __DIR__ ) . '/includes/class-feed.php';
+		require_once plugin_dir_path( __DIR__ ) . '/includes/class-admin-dataview-lists.php';
 
 		// Initialize the loader.
 		$this->loader = new Loader();
