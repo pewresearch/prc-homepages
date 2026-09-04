@@ -5,7 +5,7 @@
  * @package PRC\Platform\Homepages
  */
 
-use PRC\Platform\Homepages\Plugin;
+use PRC\Platform\Homepages\Content_Type;
 
 /**
  * Get the latest homepage ID.
@@ -13,7 +13,7 @@ use PRC\Platform\Homepages\Plugin;
  * @return int|false The latest homepage ID or false if no homepage is found.
  */
 function get_latest_homepage_id() {
-	$post_type = Plugin::$post_type;
+	$post_type = Content_Type::$post_type;
 	$query     = new WP_Query(
 		array(
 			'post_type'      => $post_type,

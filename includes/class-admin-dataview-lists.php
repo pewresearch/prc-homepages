@@ -43,7 +43,7 @@ class Admin_Dataview_Lists {
 	public static function list_configs(): array {
 		return array(
 			array(
-				'postType'  => Plugin::$post_type,
+				'postType'  => Content_Type::$post_type,
 				'pageSlug'  => 'prc-wp-admin-dataview-homepage',
 				'menuTitle' => __( 'All Homepages', 'prc-homepages' ),
 				'pageTitle' => __( 'All Homepages', 'prc-homepages' ),
