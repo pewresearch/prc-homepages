@@ -16,7 +16,6 @@ class Featured_Image_Capture {
 	public const ACTION_GROUP = 'prc-homepages';
 
 	public const META_ATTACHMENT_ID = '_homepage_screenshot_attachment_id';
-	public const META_CONTENT_HASH  = '_homepage_screenshot_hash';
 	public const META_GENERATED_AT  = '_homepage_screenshot_generated_at';
 
 	public const VIEWPORT_WIDTH  = 1200;
@@ -107,30 +106,7 @@ class Featured_Image_Capture {
 	}
 
 	/**
-	 * Content hash used to skip no-op recaptures.
-	 *
-	 * Accepts WP_Post or the pipeline's enriched stdClass from
-	 * setup_extra_wp_post_object_fields().
-	 *
-	 * @param object $post Homepage post or WP_Post-like object.
-	 * @return string
-	 */
-	public static function compute_content_hash( object $post ): string {
-		return hash(
-			'sha256',
-			implode(
-				'|',
-				array(
-					(string) $post->ID,
-					(string) $post->post_modified_gmt,
-					(string) $post->post_content,
-				)
-			)
-		);
-	}
-
-	/**
-	 * Enqueue a capture job when the pipeline reports a homepage publish or update.
+	 * Enqueue a capture job when a published homepage has no screenshot yet.
 	 *
 	 * @hook prc_platform_async_on_publish
 	 * @hook prc_platform_async_on_update
@@ -159,10 +135,8 @@ class Featured_Image_Capture {
 			return;
 		}
 
-		$post_id  = (int) $post->ID;
-		$new_hash = self::compute_content_hash( $post );
-		$stored   = (string) get_post_meta( $post_id, self::META_CONTENT_HASH, true );
-		if ( '' !== $stored && $new_hash === $stored ) {
+		$post_id = (int) $post->ID;
+		if ( (int) get_post_meta( $post_id, self::META_ATTACHMENT_ID, true ) > 0 ) {
 			return;
 		}
 
@@ -237,7 +211,6 @@ class Featured_Image_Capture {
 		}
 
 		update_post_meta( $post_id, self::META_ATTACHMENT_ID, (int) $attachment_id );
-		update_post_meta( $post_id, self::META_CONTENT_HASH, self::compute_content_hash( $post ) );
 		update_post_meta( $post_id, self::META_GENERATED_AT, gmdate( 'c' ) );
 	}
 
@@ -263,7 +236,7 @@ class Featured_Image_Capture {
 		$response = wp_remote_post(
 			$endpoint,
 			array(
-				'timeout' => 120,
+				'timeout' => 120, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- screenshotElement waits WAIT_MS plus render.
 				'headers' => array(
 					'Authorization' => 'Bearer ' . $id_token,
 					'Content-Type'  => 'application/json',
