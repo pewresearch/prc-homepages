@@ -249,6 +249,7 @@ class Featured_Image_Capture {
 						'waitMs'         => self::WAIT_MS,
 						'viewportWidth'  => self::VIEWPORT_WIDTH,
 						'viewportHeight' => self::VIEWPORT_HEIGHT,
+						'basicAuth'      => $this->gate_credentials( $url ),
 					)
 				),
 			)
@@ -275,5 +276,16 @@ class Featured_Image_Capture {
 		}
 
 		return $body;
+	}
+
+	/**
+	 * The VIP basic auth gate login for a page Firebase loads. Null except
+	 * for this non-production environment's own hosts.
+	 *
+	 * @param string $url Page URL.
+	 * @return array{login: string, password: string}|null
+	 */
+	protected function gate_credentials( string $url ): ?array {
+		return \PRC\Platform\Basic_Auth_Gate\credentials_for( $url );
 	}
 }
