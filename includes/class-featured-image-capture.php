@@ -221,71 +221,14 @@ class Featured_Image_Capture {
 	 * @return string|\WP_Error
 	 */
 	public function request_screenshot_bytes( string $url ) {
-		$endpoints = self::get_endpoints();
-		$endpoint  = $endpoints['screenshot_element'] ?? '';
-		if ( '' === $endpoint ) {
-			return new \WP_Error( 'homepage_screenshot', 'screenshot_element endpoint is not configured.' );
-		}
-
-		$firebase = new \PRC\Platform\Firebase();
-		$id_token = $firebase->get_id_token( $endpoint );
-		if ( is_wp_error( $id_token ) ) {
-			return $id_token;
-		}
-
-		$response = wp_remote_post(
-			$endpoint,
+		return ( new \PRC\Platform\Firebase() )->screenshot_element(
 			array(
-				'timeout' => 120, // phpcs:ignore WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout -- screenshotElement waits WAIT_MS plus render.
-				'headers' => array(
-					'Authorization' => 'Bearer ' . $id_token,
-					'Content-Type'  => 'application/json',
-					'Accept'        => 'image/png',
-				),
-				'body'    => wp_json_encode(
-					array(
-						'url'            => $url,
-						'selector'       => self::SELECTOR,
-						'waitMs'         => self::WAIT_MS,
-						'viewportWidth'  => self::VIEWPORT_WIDTH,
-						'viewportHeight' => self::VIEWPORT_HEIGHT,
-						'basicAuth'      => $this->gate_credentials( $url ),
-					)
-				),
+				'url'            => $url,
+				'selector'       => self::SELECTOR,
+				'waitMs'         => self::WAIT_MS,
+				'viewportWidth'  => self::VIEWPORT_WIDTH,
+				'viewportHeight' => self::VIEWPORT_HEIGHT,
 			)
 		);
-
-		if ( is_wp_error( $response ) ) {
-			return $response;
-		}
-
-		$code = (int) wp_remote_retrieve_response_code( $response );
-		$body = wp_remote_retrieve_body( $response );
-
-		if ( $code < 200 || $code >= 300 || '' === $body ) {
-			$message = 'Screenshot failed';
-			$json    = json_decode( $body, true );
-			if ( is_array( $json ) && ! empty( $json['error'] ) ) {
-				$message = (string) $json['error'];
-			}
-			return new \WP_Error(
-				'homepage_screenshot',
-				$message,
-				array( 'status' => $code )
-			);
-		}
-
-		return $body;
-	}
-
-	/**
-	 * The VIP basic auth gate login for a page Firebase loads. Null except
-	 * for this non-production environment's own hosts.
-	 *
-	 * @param string $url Page URL.
-	 * @return array{login: string, password: string}|null
-	 */
-	protected function gate_credentials( string $url ): ?array {
-		return \PRC\Platform\Basic_Auth_Gate\credentials_for( $url );
 	}
 }
